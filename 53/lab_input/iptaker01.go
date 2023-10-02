@@ -10,5 +10,5 @@ func main(){
     // Taking input from use
     fmt.Scanln(&ipv4)
     // Dispaly the input back to the user
-    fmt.Println("You told me the IOPv4 address is: " + ipv4)
+    fmt.Println("You told me the IPv4 address is: " + ipv4)
 }
