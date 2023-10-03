@@ -35,13 +35,11 @@ def shoot():
 def main():
     again = True
     while again == True:
-
-
         shoot()
         again = input("Would you to play again? (y/n)")
         if again == "y":
             again = True
-        if again == "n":
+        else:
             again = False
             break
 
