@@ -25,7 +25,7 @@ file_type = args.type
 
 # Select the file
 def cherry_pick (convert):
-    try:    
+    try:
         filename = convert
         if filename:
             return filename
