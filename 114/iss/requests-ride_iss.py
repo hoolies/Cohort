@@ -28,7 +28,9 @@ def main():
 
     print('\n\nPeople in Space: ', helmetson['number'])
     people = helmetson['people']
-    print(people)
+    for i in people:
+        print(f"{i['name']} is in {i['craft']}")
+
 
 if __name__ == "__main__":
     main()
