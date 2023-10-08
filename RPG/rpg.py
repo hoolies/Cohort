@@ -30,7 +30,7 @@ def mob_generator(min_num: int ,max_num: int) -> object:
     {"Name":"Troll", "hp": [60, 80], "strength": [15, 20], "agility": [5, 10], "defense": [5, 10]},
     {"Name":"Ogre", "hp": [80, 100], "strength": [20, 25], "agility": [1, 3], "defense": [50, 80]},
     {"Name":"Cyclops", "hp": [80, 100], "strength": [20, 25], "agility": [1, 3], "defense": [50, 80]},
-    {"Name":"Centaurs", "hp": [80, 100], "strength": [20, 25], "agility": [1, 3], "defense": [50, 80]},
+    {"Name":"Centaur", "hp": [80, 100], "strength": [20, 25], "agility": [1, 3], "defense": [50, 80]},
     {"Name":"Dragon", "hp": [300, 500], "strength": [100, 150], "agility": [10, 15], "defense": [100, 150]}
 ]
     # Selects a random number between minimum and maximum
@@ -44,7 +44,7 @@ def mob_generator(min_num: int ,max_num: int) -> object:
     defense = randint(Mobs_list[rng]['defense'][0],Mobs_list[rng]['defense'][1])
     if name == "Dragon":
         print("Imminent death is upon you. The dragon has spotted you. You must fight it.")
-    elif name == "Orge" or name == "Cyclops" or name == "Centaur":
+    elif name == "Ogre" or name == "Cyclops" or name == "Centaur":
         print("You have encountered a mythical creature.")
         sleep(1)
         print("Be careful.")
@@ -62,21 +62,24 @@ def battle_system(player: object,mob: object, score: int)-> object:
     """Battle system for the game"""
     if player.agility >= mob.agility:
         while player.hp > 0 or mob.hp > 0:
-            print(f"You attack the {mob.name}")
-            mob.hp = mob.hp - ((player.strength * player.agility) // mob.defense)
+            sleep(1)
+            print(f"\nYou attack the {mob.name}")
+            mob.hp = mob.hp - ((player.strength * player.agility) // player.defense)
             if mob.hp <= 0:
                 print(f"You have defeated the {mob.name}")
                 if mob.name == "Dragon":
                     print("Congratulations, dragon slayer.")
-                    sleep(1)
-                    print(f"You open your eyes and you are back in your bed.\nIt was all a dream\n\n\nYour score is {score}!!")
+                    sleep(3)
+                    print(f"You open your eyes and you are back in your bed.\n")
+                    sleep(2)
+                    print("It was all a dream!")
                     exit()
                 break
             else:
                 print(f"The {mob.name} has {mob.hp} hp left")
                 sleep(1)
-                print(f"The {mob.name} attacks you")
-                player.hp = player.hp - ((mob.strength * mob.agility) // player.defense) 
+                print(f"\nThe {mob.name} attacks you")
+                player.hp = player.hp - ((mob.strength * mob.agility) // mob.defense) 
                 print(f"You have {player.hp} hp left")
                 sleep(1)
                 if player.hp <= 0:
@@ -85,7 +88,7 @@ def battle_system(player: object,mob: object, score: int)-> object:
     else:
         while player.hp > 0 or mob.hp > 0:
             print(f"The {mob.name} attacks you")
-            player.hp = player.hp - ((mob.strength * mob.agility) // player.defense)
+            player.hp = player.hp - ((mob.strength * mob.agility) // mob.defense)
             if player.hp <= 0:
                 print(f"You have died\n\nYou score is {score}!!")
                 exit()
@@ -93,15 +96,15 @@ def battle_system(player: object,mob: object, score: int)-> object:
                 print(f"You have {player.hp} hp left")
                 sleep(1)
                 print(f"You attack the {mob.name}")
-                mob.hp = (mob.hp - ((player.strength * player.agility) // mob.defense))
+                mob.hp = (mob.hp - ((player.strength * player.agility) // player.defense))
                 sleep(1)
                 if mob.hp <= 0:
                     if mob.name == "Dragon":
                         print("\n\nCongratulations, dragon slayer.\n")
-                        sleep(1)
+                        sleep(3)
                         print(f"You open your eyes and you are back in your bed.\n")
-                        sleep(1)
-                        print("It was all a dream\n\n\nYour score is {score}!!")
+                        sleep(2)
+                        print("It was all a dream!")
                         exit()
                     print(f"\nYou have defeated the {mob.name}\n")
                     break
@@ -109,7 +112,10 @@ def battle_system(player: object,mob: object, score: int)-> object:
     print(f"\n\nYou absorb the {mob.name}'s soul and you feel stronger\n")
     
     # Upgrade the player's stats
-    player.hp += randint(score,1)
+    if score == 0:
+        player.hp += randint(1,1)    
+    else:
+        player.hp += randint(1,score)
     player.strength += randint(1,mob.strength)
     player.agility += randint(1,mob.agility)
     player.defense += randint(1,mob.defense)
@@ -119,17 +125,14 @@ def battle_system(player: object,mob: object, score: int)-> object:
 def fight(player, mob):
     """Fight a mob"""
     print(f"""
-        You are fighting a {mob.name}
-        HP: {mob.hp}
-        Strength: {mob.strength}
-        Agility: {mob.agility}
-        Defense: {mob.defense}
+          
+        You are fighting a {mob.name}                   Your stats are:
+        HP: {mob.hp}                                    HP: {player.hp}
+        Strength: {mob.strength}                        Strength: {player.strength}
+        Agility: {mob.agility}                          Agility: {player.agility}
+        Defense: {mob.defense}                          Defense: {player.defense}
 
-        Your stats are:
-        HP: {player.hp}
-        Strength: {player.strength}
-        Agility: {player.agility}
-        Defense: {player.defense}
+
     """) 
     print("What would you like to do?")
     print("\t1. Fight")
@@ -242,15 +245,15 @@ def spawn_mob(score):
         print("There are no monsters nearby.\nYou are safe, for now!\n")
         return None
     else:
-        if score < 7:
+        if score < 6:
             mob = mob_generator(0,5)
-        elif score <= 12 and score >= 8:
+        elif score <= 12 and score >= 6:
             mob = mob_generator(6,7)
-        elif score < 22 and score > 12:
+        elif score < 16 and score > 12:
             mob = mob_generator(7, 10)
         else:
             mob = mob_generator(7,11)
-        print(f"You have encountered a {mob.name}")
+        print(f"\nYou have encountered a {mob.name}")
         return mob
 
 
@@ -297,7 +300,7 @@ score = 0
 def game(score,cc, croom, Rooms):
     """This is the main function that runs the game"""
     print("""
-          You have entered the castle. You are in the Great Hall.
+          You have entered a ruined castle. You are in the Great Hall.
           You do not know how you got here. You can't remember anything.
           Most importantly, you don't know how to get out.
           You must find a way to escape.
@@ -335,8 +338,9 @@ def game(score,cc, croom, Rooms):
                 Your humanity is now gone.
                 You are trapped in the castle forever.
                 """)
-            print("\n\nYour score is: ", score)
             exit()
+
+
 def main():
     """Main function"""
     game(score,cc, croom, Rooms)
