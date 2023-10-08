@@ -126,11 +126,11 @@ def fight(player, mob):
     """Fight a mob"""
     print(f"""
           
-        You are fighting a {mob.name}                   Your stats are:
-        HP: {mob.hp}                                    HP: {player.hp}
-        Strength: {mob.strength}                        Strength: {player.strength}
-        Agility: {mob.agility}                          Agility: {player.agility}
-        Defense: {mob.defense}                          Defense: {player.defense}
+        You are fighting a {mob.name}\t\t\tYour stats are:
+        HP: {mob.hp}\t\t\t\t\t\tHP: {player.hp}
+        Strength: {mob.strength}\t\t\t\t\tStrength: {player.strength}
+        Agility: {mob.agility}\t\t\t\t\tAgility: {player.agility}
+        Defense: {mob.defense}\t\t\t\t\tDefense: {player.defense}
 
 
     """) 
@@ -184,14 +184,14 @@ def showInstructions():
     """Show the game instructions when called"""
     #print a main menu and the commands
     print('''
-    RPG Game
-    ========
-    Commands:
-        go [direction]
-        hide (hides in the shadows)
-        fight (fights the monster)
-        quit (to end the game)
-        help (to show this menu again)
+RPG Game
+========
+Commands:
+    go [direction]
+    hide (hides in the shadows)
+    fight (fights the monster)
+    quit (to end the game)
+    help (to show this menu again)
     ''')
 
 def command_check(command, cc, score):
@@ -300,10 +300,10 @@ score = 0
 def game(score,cc, croom, Rooms):
     """This is the main function that runs the game"""
     print("""
-          You have entered a ruined castle. You are in the Great Hall.
-          You do not know how you got here. You can't remember anything.
-          Most importantly, you don't know how to get out.
-          You must find a way to escape.
+You have entered a ruined castle. You are in the Great Hall.
+You do not know how you got here. You can't remember anything.
+Most importantly, you don't know how to get out.
+You must find a way to escape.
           """)
     player = initiate_player()
     showInstructions()
