@@ -17,6 +17,7 @@ alias grep="grep --color"
 alias c..="cd ../.."
 alias untar="tar -zxvf"
 alias nao="sudo reboot now"
+alias py="usr/bin/python3"
 EOF
 
 source ~/.bashrc
