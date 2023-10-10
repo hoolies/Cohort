@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
 """FastAPI with HTMX"""
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+import sqlite3
+from flask import Flask, render_template
 
+def coonect_to_sql():
+    """Create connection to the database"""
+    conn = sqlite3.connect('passwords.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
-# Set the app
-app = FastAPI()
-
-# Set the templates
-templates = Jinja2Templates(directory="templates")
-
-@app.get("/index", response_class=HTMLResponse)
-def index(request: Request):
-    """Index Function"""
-    context = {"request": request}
-    return templates.TemplateResponse("index.html", context)
-
-
-
-
-
+@app.route("/")
+def index():
+    conn = connect_to_sql()
+    posts = 
