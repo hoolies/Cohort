@@ -1,0 +1,28 @@
+---
+- name: Query an Open API
+  hosts: localhost
+  connection: local
+
+  vars:
+     murl: 'https://statsapi.web.nhl.com/api/v1/teams'
+  
+  tasks:
+  - name: Send an HTTP GET to API
+    ansible.builtin.uri:
+      method: GET
+      url: "{{ murl }}"
+    register: data
+
+  - name: Use debug to show what is inside of our variable
+    ansible.builtin.debug:
+      msg: "{{ data }}"
+
+  - name: Slice the variable further to only return the JSON
+    ansible.builtin.debug:
+      msg: "{{ data.get('json') }}"
+
+  - name: Use debug with a loop across the JSON data
+    ansible.builtin.debug:
+      msg: "Key: {{ item.key }} Value: {{ item.value }}"
+    loop: "{{ data  | dict2items }}"
+
