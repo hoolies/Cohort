@@ -1,0 +1,18 @@
+---
+- name: Tuesday Challenge
+  hosts: planet express
+  connection: ssh 
+  gather_facts: yes
+
+  tasks:
+   - apt:
+       name: sl
+       state: present
+     name: using apt to install sl
+     register: result 
+
+   - name: print out result
+     debug:
+       var: result
+
+  
