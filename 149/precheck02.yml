@@ -8,11 +8,9 @@
                                 # (it runs *_facts on the target network switches)
 
   vars:
-    ansible_ssh_pass: alta3
-
-  vars:
     switch_image: "flash:/vEOS-lab.swi"
     switch_image_version: "4.22.0F"
+    ansible_ssh_pass: alta3
 
   tasks:
   # dig into the data we want to reveal
