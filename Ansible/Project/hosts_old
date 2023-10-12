@@ -1,0 +1,4 @@
+[phonetic]
+alpha       ansible_host=10.12.181.126 ansible_user=alpha ansible_python_interpreter=/usr/bin/python3
+bravo       ansible_host=10.8.92.201 ansible_user=bravo ansible_python_interpreter=/usr/bin/python3
+charlie     ansible_host=10.3.132.25 ansible_user=charlie ansible_python_interpreter=/usr/bin/python3

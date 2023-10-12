@@ -1,0 +1,45 @@
+---
+- name: First Ansible Project
+  hosts: phonetic
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+  - name: Print all facts
+    ansible.builtin.debug:
+      var: ansible_facts
+
+  - name: Install app
+    ansible.builtin.apt:
+      name: cowsay
+      state: present
+    become: yes
+
+  - name: Push a file
+    ansible.builtin.copy:
+      src: "/tmp/jw.txt"
+      dest: "/tmp/jw.txt"
+      mode: '1644'
+    become: yes
+
+  - name: Check the file
+    command: ls /tmp
+    register: jw
+  - debug: var=jw.stdout
+
+  - name: Jinja Template
+    ansible.builtin.template:
+      src: template.j2
+      dest: /tmp/info
+
+- name: Alpha only Second Playbook
+  hosts: alpha
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+  - name: Delete file from alpha 
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/jw.txt
+    become: yes
