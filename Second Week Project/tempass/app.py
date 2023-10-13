@@ -72,12 +72,12 @@ def generate_password_uri() -> str: # type: ignore
     # cur.execute(f"""    
     # DELETE FROM "tempass" WHERE Time<'{two_days_old}'
     # """)
-    con.commit()
+    # con.commit()
     return render_template("token.html", uri=uri)
 
 
 @app.route('/password/<uri>', methods=['GET', 'POST'])
-def uri_response(uri: str) -> str:
+def uri_response(uri: str) -> str: # type: ignore
     """Return the password"""
     # Connects to the database
     query_con = connect("tempass.db")
@@ -92,3 +92,25 @@ def uri_response(uri: str) -> str:
     """)
     query_con.commit()
     return render_template("password.html", password=password[0][0])
+
+
+
+@app.route('/admin')
+def admin() -> str:
+    """Return the password"""
+    # Connects to the database
+    query_con = connect("tempass.db")
+    query_cur = query_con.cursor()
+    # Creating password.db in the local directory
+    password = alphanumeric_generator()
+    uri = alphanumeric_generator(length = 10, complexity = 3)
+    # Transforms time to epoch
+    now = int(datetime.now().timestamp())
+    query_cur.execute(
+    f"""
+    INSERT INTO tempass(Token, Password, Time) 
+    VALUES (?,?,?);
+    """, (uri, password, now)
+    )
+    query_con.commit()
+    return render_template("admin.html", uri=uri, password=password)
