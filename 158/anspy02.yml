@@ -1,0 +1,14 @@
+- name: Push a script and run it
+  hosts: localhost
+
+  tasks:
+    ## If you want your script to only ever execute once
+    - script: pyhello02.py
+      args:
+        ## execute in python3 and only run if the following file is MISSING
+        executable: python3
+        removes: /home/student/Cohort/158/stopper.txt
+      register: results
+
+    - debug:
+        msg: "{{ results }}"
